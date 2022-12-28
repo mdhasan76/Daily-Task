@@ -4,7 +4,9 @@ import { router } from './page/shared/route';
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <div className='max-w-7xl mx-auto'>
+      <RouterProvider router={router} />
+    </div>
   );
 }
 
