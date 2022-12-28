@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineMail } from "react-icons/ai";
+import { AuthContext } from '../../route/AuthProvider';
 
 
 const Login = () => {
+    const { googleLogIn } = useContext(AuthContext)
+
+    const handleGoogleLogIn = () => {
+        console.log("clicked")
+        googleLogIn()
+            .then(res => {
+                console.log(res.user)
+            })
+            .catch(err => console.log(err))
+    }
     return (
         <section>
             <div className="min-h-[89vh] bg-gradient-to-bl from-indigo-500 via-purple-500 to-cyan-500 flex items-center">
@@ -39,7 +50,7 @@ const Login = () => {
                         </form>
                         <div className="text-center font-bold my-3">OR</div>
                         <div className='text-center'>
-                            <button className='bg-slate-300 p-3 rounded-full'><FcGoogle className=' text-3xl w-full' /></button>
+                            <button onClick={handleGoogleLogIn} className='bg-slate-300 p-3 rounded-full'><FcGoogle className=' text-3xl w-full' /></button>
                         </div>
 
                         <p className='block text-center text-sm label opacity-80 py-3'>new to Daily Task?
