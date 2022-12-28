@@ -1,8 +1,13 @@
 import { Button, Navbar } from 'flowbite-react';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
+    let activeStyle = {
+        textDecoration: "underline",
+    };
+
+    let activeClassName = "underline";
     return (
         <Navbar
             fluid={true}
@@ -19,25 +24,42 @@ const Header = () => {
                 </span>
             </Navbar.Brand>
             <Navbar.Collapse>
-                <Navbar.Link
-                    href="/navbars"
-                    active={true}
+                <NavLink
+                    to="/"
+                    style={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                    }
                 >
                     Home
-                </Navbar.Link>
-                <Navbar.Link href="/">
+                </NavLink>
+                <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                        isActive ? activeClassName : undefined
+                    }
+                >
                     Add Task
-                </Navbar.Link>
-                <Navbar.Link href="/">
+                </NavLink>
+                <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                        isActive ? activeClassName : undefined
+                    }
+                >
                     My Task
-                </Navbar.Link>
-                <Navbar.Link href="/">
+                </NavLink>
+                <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                        isActive ? activeClassName : undefined
+                    }
+                >
                     Complate Task
-                </Navbar.Link>
+                </NavLink>
             </Navbar.Collapse>
-            
+
             <div className="flex">
-            <Button><Link to="/login">Login</Link></Button>
+                <Button><Link to="/login">Login</Link></Button>
                 <Navbar.Toggle />
             </div>
         </Navbar>
