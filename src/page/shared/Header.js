@@ -20,7 +20,7 @@ const Header = () => {
                     alt="Flowbite Logo"
                 />
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-                    Flowbite
+                    Daily Task
                 </span>
             </Navbar.Brand>
             <Navbar.Collapse>
@@ -33,7 +33,7 @@ const Header = () => {
                     Home
                 </NavLink>
                 <NavLink
-                    to="/login"
+                    to="/addtask"
                     className={({ isActive }) =>
                         isActive ? activeClassName : undefined
                     }
@@ -41,7 +41,7 @@ const Header = () => {
                     Add Task
                 </NavLink>
                 <NavLink
-                    to="/login"
+                    to="/mytask"
                     className={({ isActive }) =>
                         isActive ? activeClassName : undefined
                     }
@@ -49,7 +49,7 @@ const Header = () => {
                     My Task
                 </NavLink>
                 <NavLink
-                    to="/login"
+                    to="/complatetask"
                     className={({ isActive }) =>
                         isActive ? activeClassName : undefined
                     }
