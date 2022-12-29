@@ -1,19 +1,67 @@
-import React from 'react';
+import { Spinner } from 'flowbite-react';
+import React, { useContext, useState } from 'react';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
+import { AuthContext } from '../../route/AuthProvider';
 
 const AddTask = () => {
+    const { user } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false)
+    const addTask = (e) => {
+        e.preventDefault();
+        setLoading(true)
+        const form = e.target;
+        const title = form.title.value;
+        const description = form.description.value;
+        const img = e.target.img.files[0];
+
+
+        // upload img in imgbb 
+        const formData = new FormData();
+        formData.append('image', img)
+        fetch(`https://api.imgbb.com/1/upload?expiration=600&key=${process.env.REACT_APP_imgbbAPI}`, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgdata => {
+                const taskImg = imgdata.data.url;
+                const task = {
+                    email: user?.email,
+                    title,
+                    img: taskImg,
+                    description
+                }
+
+                //add task in database
+                fetch(`http://localhost:5000/addtask`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(task)
+                })
+                    .then(res => res.json())
+                    .then(addData => {
+                        console.log(addData);
+                        setLoading(false)
+                        form.reset()
+                    })
+            })
+        // console.log(title, description, img)
+    }
+
     return (
         <section>
             <div className="min-h-[89vh] bg-gradient-to-bl from-indigo-500 via-purple-500 to-cyan-500 flex items-center">
                 <div className="max-w-2xl w-full mx-auto bg-white">
                     <div className="w-full shadow-2xl">
-                        <form className='p-8'>
+                        <form className='p-8' onSubmit={addTask}>
                             <div className='mb-3'>
                                 <label className="label pb-0">
                                     <span className="label-text text-lg font-semibold">Add Title</span>
                                 </label>
                                 <div>
-                                    <input type="text" name="title" placeholder='task title' className="p-3 block border-b-2 outline-0 border-0 focus:border-slate-500 focus:border-b-4 font-medium text-lg w-full" />
+                                    <input type="text" name="title" placeholder='task title' className="p-3 block border-b-2 outline-0 border-0 focus:border-slate-500 focus:border-b-4 font-medium text-lg w-full" required />
                                 </div>
                             </div>
                             <div>
@@ -22,7 +70,7 @@ const AddTask = () => {
                                     <span className="label-text text-lg font-semibold">Upload Media</span>
                                 </label>
                                 <div>
-                                    <input type="file" name="img" className="p-3 block border-b-2 border-slate-500 outline-0 font-medium text-lg w-full" />
+                                    <input type="file" name="img" className="p-3 block border-b-2 border-slate-500 outline-0 font-medium text-lg w-full" required />
                                 </div>
                             </div>
                             {/* <div>
@@ -49,11 +97,16 @@ const AddTask = () => {
                                     <span className="label-text text-lg font-semibold">Add Text</span>
                                 </label>
                                 <div>
-                                    <textarea className="p-3 w-full border-slate-500 text-lg mb-2" placeholder='write your task description' rows="5"></textarea>
+                                    <textarea className="p-3 w-full border-slate-500 text-lg mb-2" name="description" placeholder='write your task description' rows="5" required></textarea>
                                 </div>
                             </div>
                             <div className="form-control">
-                                <button className="text-white border-none rounded-full bg-gradient-to-bl from-indigo-500 to-green-500 p-3 mt-2 w-full">Add Task</button>
+                                {
+                                    loading ?
+                                        <button className="text-white border-none rounded-full bg-gradient-to-bl from-indigo-500 to-green-500 p-3 mt-2 w-full">
+                                            <Spinner aria-label="Alternate spinner button example" /> Add Task</button> : <button className="text-white border-none rounded-full bg-gradient-to-bl from-indigo-500 to-green-500 p-3 mt-2 w-full">
+                                            Add Task</button>
+                                }
                             </div>
                         </form>
                     </div>
