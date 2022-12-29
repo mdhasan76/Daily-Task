@@ -1,5 +1,6 @@
 import { Spinner } from 'flowbite-react';
 import React, { useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { AuthContext } from '../../route/AuthProvider';
 
@@ -42,7 +43,7 @@ const AddTask = () => {
                 })
                     .then(res => res.json())
                     .then(addData => {
-                        console.log(addData);
+                        toast.success("Added Task successful")
                         setLoading(false)
                         form.reset()
                     })
