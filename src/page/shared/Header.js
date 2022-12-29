@@ -1,21 +1,30 @@
 import { Button, Navbar } from 'flowbite-react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../../route/AuthProvider';
+import toast from 'react-hot-toast';
+import logo from "../../assets/task.png"
 
 const Header = () => {
+    const { user, logOut } = useContext(AuthContext);
     let activeStyle = {
         textDecoration: "underline",
     };
 
     let activeClassName = "underline";
+    const handlelogout = () => {
+        logOut()
+            .then(() => toast.success("Log out sucessful"))
+            .catch(err => console.log(err))
+    }
     return (
         <Navbar
             fluid={true}
             rounded={true}
         >
-            <Navbar.Brand href="https://flowbite.com/">
+            <Navbar.Brand href="/">
                 <img
-                    src="https://flowbite.com/docs/images/logo.svg"
+                    src={logo}
                     className="mr-3 h-6 sm:h-9"
                     alt="Flowbite Logo"
                 />
@@ -59,7 +68,9 @@ const Header = () => {
             </Navbar.Collapse>
 
             <div className="flex">
-                <Button><Link to="/login">Login</Link></Button>
+                {
+                    user ? <Button onClick={handlelogout}>Logout</Button> : <Button><Link to="/login">Login</Link></Button>
+                }
                 <Navbar.Toggle />
             </div>
         </Navbar>
