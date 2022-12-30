@@ -1,13 +1,9 @@
-import { Spinner } from 'flowbite-react';
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { toast } from 'react-hot-toast';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { useLoaderData } from 'react-router-dom';
-import { AuthContext } from '../../route/AuthProvider';
 
 const UpdateTask = () => {
     const data = useLoaderData();
-    const { user } = useContext(AuthContext);
 
     //update
     const handleUpdate = (e) => {
@@ -16,25 +12,24 @@ const UpdateTask = () => {
         const form = e.target;
         const title = form.title.value;
         const description = form.description.value;
-        const data = {
+        const updateData = {
             title: title,
             description: description
 
         }
-        console.log(data)
-        // fetch(`https://daily-task-server-nu.vercel.app/updatetask/${data._id}`, {
-        //     method: "PATCH",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({ data })
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         if (data.modifiedCount > 0) {
-        //             toast.success("Update successful")
-        //         }
-        //     })
+        fetch(`https://daily-task-server-nu.vercel.app/updatetask/${data._id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ updateData })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success("Update successful")
+                }
+            })
     }
     return (
         <section>
