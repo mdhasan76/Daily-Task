@@ -8,7 +8,6 @@ import { AuthContext } from '../../route/AuthProvider';
 const UpdateTask = () => {
     const data = useLoaderData();
     const { user } = useContext(AuthContext);
-    const [loading, setLoading] = useState(false);
 
     //update
     const handleUpdate = (e) => {
@@ -42,7 +41,7 @@ const UpdateTask = () => {
             <div className="min-h-[89vh] bg-gradient-to-bl from-indigo-500 via-purple-500 to-cyan-500 flex items-center">
                 <div className="max-w-2xl w-full mx-auto bg-white">
                     <div className="w-full shadow-2xl">
-                        <form className='p-8' onSubmit={() => handleUpdate()}>
+                        <form className='p-8' onSubmit={handleUpdate}>
                             <div className='mb-3'>
                                 <label className="label pb-0">
                                     <span className="label-text text-lg font-semibold">Add Title</span>
@@ -62,12 +61,9 @@ const UpdateTask = () => {
                                 </div>
                             </div>
                             <div className="form-control">
-                                {
-                                    loading ?
-                                        <button className="text-white border-none rounded-full bg-gradient-to-bl from-indigo-500 to-green-500 p-3 mt-2 w-full">
-                                            <Spinner aria-label="Alternate spinner button example" /> Updating Task</button> : <button className="text-white border-none rounded-full bg-gradient-to-bl from-indigo-500 to-green-500 p-3 mt-2 w-full">
-                                            Update Task</button>
-                                }
+                                <button className="text-white border-none rounded-full bg-gradient-to-bl from-indigo-500 to-green-500 p-3 mt-2 w-full">
+                                    Update Task</button>
+
                             </div>
                         </form>
                     </div>
