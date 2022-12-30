@@ -35,12 +35,12 @@ const MyTask = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ isComplate: false })
+            body: JSON.stringify({ isComplate: true })
         })
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount > 0) {
-                    toast.success("Tasl Complate")
+                    toast.success("Task Complate")
                     refetch()
                 }
             })
@@ -50,7 +50,7 @@ const MyTask = () => {
     return (
         <section>
             {
-                data.lenght !== 0 ? <div className='p-5 grid gap-5 md:grid-cols-2'>
+                data.lenght !== 0 ? <div className='p-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3'>
                     {data.map(task =>
 
                         <Card key={task._id} className='max-w-xl mx-auto'>

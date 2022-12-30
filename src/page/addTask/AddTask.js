@@ -30,7 +30,8 @@ const AddTask = () => {
                     email: user?.email,
                     title,
                     img: taskImg,
-                    description
+                    description,
+                    isComplate: false
                 }
 
                 //add task in database
