@@ -12,7 +12,7 @@ const ComplateTask = () => {
     const { data = [], refetch } = useQuery({
         queryKey: ["complatetask"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/mycomplatetask?email=${user?.email}`);
+            const res = await fetch(`https://daily-task-server-nu.vercel.app/mycomplatetask?email=${user?.email}`);
             const output = await res.json();
             return output
         }
@@ -22,7 +22,7 @@ const ComplateTask = () => {
     const deleteTask = (id) => {
         const doDelete = window.confirm("Do you Want to delete this task?");
         if (doDelete) {
-            fetch(`http://localhost:5000/delete/${id}`, {
+            fetch(`https://daily-task-server-nu.vercel.app/delete/${id}`, {
                 method: "DELETE"
             })
                 .then(res => res.json())
@@ -37,7 +37,7 @@ const ComplateTask = () => {
 
     //Complate Task
     const complateTask = (id) => {
-        fetch(`http://localhost:5000/complatetask/${id}`, {
+        fetch(`https://daily-task-server-nu.vercel.app/complatetask/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"

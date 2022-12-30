@@ -23,7 +23,7 @@ const UpdateTask = () => {
 
         }
         console.log(data)
-        // fetch(`http://localhost:5000/updatetask/${data._id}`, {
+        // fetch(`https://daily-task-server-nu.vercel.app/updatetask/${data._id}`, {
         //     method: "PATCH",
         //     headers: {
         //         "Content-Type": "application/json"
