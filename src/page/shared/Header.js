@@ -4,9 +4,11 @@ import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../route/AuthProvider';
 import toast from 'react-hot-toast';
 import logo from "../../assets/task.png"
+import { RiUser3Fill } from 'react-icons/ri';
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
+    console.log(user)
     let activeStyle = {
         textDecoration: "underline",
     };
@@ -69,7 +71,16 @@ const Header = () => {
 
             <div className="flex">
                 {
-                    user ? <Button onClick={handlelogout}>Logout</Button> : <Button><Link to="/login">Login</Link></Button>
+                    user ?
+                        <div className='flex items-center'>
+                            {
+                                user?.photoURL ? <img title={user?.displayName
+                                } alt='/' className='h-10 w-10 rounded-full mr-3' src={user?.photoURL} /> : <div title={user?.displayName} className="mr-2"><RiUser3Fill className='text-3xl' /></div>
+                            }
+                            <Button onClick={handlelogout}>Logout</Button>
+                        </div>
+                        :
+                        <Button><Link to="/login">Login</Link></Button>
                 }
                 <Navbar.Toggle />
             </div>

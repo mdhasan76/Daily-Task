@@ -7,6 +7,7 @@ import Login from "../login/Login";
 import MyTask from "../myTask/MyTask";
 import Register from "../register/Register";
 import PrivateRoute from "../../route/PrivateRoute";
+import UpdateTask from "../updateTask/UpdateTask";
 
 export const router = createBrowserRouter([
     {
@@ -37,6 +38,11 @@ export const router = createBrowserRouter([
                 path: "/register",
                 element: <Register />
             },
+            {
+                path: "/updatetask/:id",
+                loader: ({ params }) => fetch(`http://localhost:5000/updatetask/${params.id}`),
+                element: <UpdateTask />
+            }
         ]
     },
     {

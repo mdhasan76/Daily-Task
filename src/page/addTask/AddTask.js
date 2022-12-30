@@ -107,7 +107,7 @@ const AddTask = () => {
                                     loading ?
                                         <button className="text-white border-none rounded-full bg-gradient-to-bl from-indigo-500 to-green-500 p-3 mt-2 w-full">
                                             <Spinner aria-label="Alternate spinner button example" /> Add Task</button> : <button className="text-white border-none rounded-full bg-gradient-to-bl from-indigo-500 to-green-500 p-3 mt-2 w-full">
-                                            Add Task</button>
+                                            Task Adding</button>
                                 }
                             </div>
                         </form>

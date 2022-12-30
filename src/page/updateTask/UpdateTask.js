@@ -1,0 +1,80 @@
+import { Spinner } from 'flowbite-react';
+import React, { useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { AiOutlineCloudUpload } from 'react-icons/ai';
+import { useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../route/AuthProvider';
+
+const UpdateTask = () => {
+    const data = useLoaderData();
+    const { user } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
+
+    //update
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        // setLoading(true)
+        const form = e.target;
+        const title = form.title.value;
+        const description = form.description.value;
+        const data = {
+            title: title,
+            description: description
+
+        }
+        console.log(data)
+        // fetch(`http://localhost:5000/updatetask/${data._id}`, {
+        //     method: "PATCH",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({ data })
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         if (data.modifiedCount > 0) {
+        //             toast.success("Update successful")
+        //         }
+        //     })
+    }
+    return (
+        <section>
+            <div className="min-h-[89vh] bg-gradient-to-bl from-indigo-500 via-purple-500 to-cyan-500 flex items-center">
+                <div className="max-w-2xl w-full mx-auto bg-white">
+                    <div className="w-full shadow-2xl">
+                        <form className='p-8' onSubmit={() => handleUpdate()}>
+                            <div className='mb-3'>
+                                <label className="label pb-0">
+                                    <span className="label-text text-lg font-semibold">Add Title</span>
+                                </label>
+                                <div>
+                                    <input type="text" name="title" placeholder='task title' className="p-3 block border-b-2 outline-0 border-0 focus:border-slate-500 focus:border-b-4 font-medium text-lg w-full" defaultValue={data.title} />
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                            <div className="mt-3">
+                                <label className="label py-2 block">
+                                    <span className="label-text text-lg font-semibold">Add Text</span>
+                                </label>
+                                <div>
+                                    <textarea className="p-3 w-full border-slate-500 text-lg mb-2" name="description" placeholder='write your task description' rows="5" defaultValue={data.description}></textarea>
+                                </div>
+                            </div>
+                            <div className="form-control">
+                                {
+                                    loading ?
+                                        <button className="text-white border-none rounded-full bg-gradient-to-bl from-indigo-500 to-green-500 p-3 mt-2 w-full">
+                                            <Spinner aria-label="Alternate spinner button example" /> Updating Task</button> : <button className="text-white border-none rounded-full bg-gradient-to-bl from-indigo-500 to-green-500 p-3 mt-2 w-full">
+                                            Update Task</button>
+                                }
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default UpdateTask;
